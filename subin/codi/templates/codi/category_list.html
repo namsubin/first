@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+
+<!-- 제목 블럭 Start (기본값 My Blog Page) -->
+{% block title %}
+Category List
+{% endblock%}
+<!-- 제목 블록 End -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<!-- 스타일 블록  Start -->
+{% block extra-style %}
+<style>
+    .card:hover{
+        transform : scale(1.1);
+    }
+</style>
+{% endblock %}
+<!-- 스타일 블록  End -->
+
+<!-- 콘텐츠 블록 Start -->
+{% block content %}
+    
+    {% for item in object_list %} 
+
+    <div class="mt-5">
+        <a class="h2" style="text-decoration:none; color:#9B8281" href="{% url 'codi:category_detail' item.id %}">
+        {{item.name}}</a>&emsp;
+        <span class="font-italic h5">{{item.description}}</span>
+    </div>
+
+    <hr style="margin : 0 0 20px 0;">
+
+    <div class="container">
+        <div class="row">
+            {% for codi in item.codi_set.all|slice:":4"%}
+                <div class="col-3">
+                    <div class ='card'>
+                        <a href="{{codi.get_absolute_url}}">
+                            <img src="{{codi.image.thumb_url}}" alt="" class="card-img-top">
+                            <hr>
+                        </a>
+                        <div class="card-body">
+                            <h6 class="'card-title">{{codi.title}}</h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor%}
+      </div>
+    </div>
+    {% endfor %}
+     
+{% endblock %}
+<!-- 콘텐츠 블록 End -->
+
+<!--  스크럽트 블록 Start -->
+{% block extra-script %}
+
+{% endblock %}
+<!--  스크럽트 블록 End -->

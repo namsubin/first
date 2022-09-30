@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block title %}Post List{% endblock%}
+
+{% block content%}
+<h2>📍 Post List</h2>
+&nbsp;
+
+{% for post in posts %}
+    <h4><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h4>
+    registration date : {{ post.modify_dt|date:"N d, Y" }}
+    <p>post description : {{ post.description }}</p>
+    <hr>
+{% endfor%}
+
+<br />
+
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+        <a class='h6' href="?page={{ page_obj.previous_page_number}}">PreviousPage</a>
+        {% endif%}
+
+        Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+        <a class='h6' href="?page={{ page_obj.next_page_number}}">NextPage</a>
+        {% endif%}
+    </span>
+</div>
+{% endblock%}

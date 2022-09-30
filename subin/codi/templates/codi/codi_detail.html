@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+
+<!-- 제목 블럭 Start (기본값 My Blog Page) -->
+{% block title %}
+Codi Detail
+{% endblock%}
+<!-- 제목 블록 End -->
+
+<!-- 스타일 블록  Start -->
+{% block extra-style %}
+{% endblock %}
+<!-- 스타일 블록  End -->
+
+<!-- 콘텐츠 블록 Start -->
+{% block content %}
+    <h2 class="mt-5">💡 {{object.title}}</h2>
+
+    <div class="row">
+        <div class="col-md-7">
+            <a href="{{object.image.url}}">
+                <img src="{{object.image.url}}" style="width:70%">
+            </a>
+        </div>
+        <ul class="col-md-5 mt-5">
+            <li class="h5">Codi Description</li>
+            {% if object.description %}<p>{{object.description|linebreaks}}</p>
+            {% else %}<p>(blank)</p>
+            {% endif%}
+
+            <li class="h5">Date Uploaded</li>
+                <p class="font-italic">{{object.upload_dt}}</p>
+
+            <li class="h5">Category Name</li>
+                <p class="font-italic">
+                    <a href="{% url 'codi:category_detail' object.category.id %}">{{object.category.name}}</a>
+                </p>
+
+            <li class ='h5'>Homepage URL</li>
+                <p class="font-italic">
+                    <a href="{{object.url}}">{{object.url}}</a>
+                </p>
+        </ul>
+    </div>
+{% endblock %}
+<!-- 콘텐츠 블록 End -->
+
+<!--  스크럽트 블록 Start -->
+{% block extra-script %}
+{% endblock %}
+<!--  스크럽트 블록 End -->

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Post Seach
+{% endblock %}
+
+{% block extra-style %}
+{% endblock %}
+
+{% block content %}
+    <h2>🔎 Post Search</h2>
+    <form action ='.' method="post"> {% csrf_token %}
+        {{form.as_table}}
+        <button type="submit" class="btn btn-secondary btn-sm"><a style="text-decoration:none; color:white">search</a></button>
+    </form>
+    <br>
+    <br>
+    
+    {% if object_list%}
+        {% for post in object_list%}
+        <h4><a href="{{post.get_absolute_url}}">{{post}}</a></h4>
+        {{post.modify_dt|date:'N d, Y'}}
+        <p>{{post.description}}</p>
+        {%endfor%}
+    {% elif search_term%}
+        <p><i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg> Search Word({{search_term}}) Not Found! </i></p>
+    {%else%}
+    <b><i>Do a search !</i></b>
+    {%endif%}
+
+{% endblock %}
+
+{% block extra-script %}
+{% endblock %}

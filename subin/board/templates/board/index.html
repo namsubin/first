@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+<!-- 제목 블럭 Start (기본값 My Blog Page) -->
+{% block title %}
+Board
+{% endblock%}
+<!-- 제목 블록 End -->
+
+<!-- 스타일 블록  Start -->
+{% block extra-style %}
+<style type="text/css">
+    thead {
+        background-color:#e9ecef;
+    }
+
+    .content {
+        max-width:1000px;
+        margin: auto;
+        padding:10px;
+        text-align: center;
+    }
+
+    .header {
+        text-align: center;
+    }
+
+    .board {
+        width: 100%
+    }
+
+
+    .current {
+        font-weight: bold;
+    }
+
+    a {
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .abutton {
+        background-color: #e6e6ff;
+        color: #7b7b7b;
+        font-size: small;
+    }
+</style>
+{% endblock %}
+<!-- 스타일 블록  End -->
+
+<!-- 콘텐츠 블록 Start -->
+{% block content %}
+<div class="content">
+    <div class="header">
+        <h2><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+          </svg> Board List <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+          </svg></h2>
+          &nbsp;
+          <h6>🤎Please feel free to write your opinions🤎</h6>
+    </div>
+    <div style="text-align:right">
+    <a class="btn btn-secondary btn" style="text-decoration:none; color:white" href="{% url 'board:write' %}">글쓰기</a>
+    </div>
+    &nbsp;
+
+    <div style="height:280px;">
+        <table class="table table-hover">
+            <thead>
+                <tr class="header">
+                    <th style="width:15%;">순번</th>
+                    <th style="width:55%">제목</th>
+                    <th style="width:30%">작성일자</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if board_list %}
+                {% for data in board_list %}
+                <tr>
+                    <td style="text-align:center;">{{ data.id }}</td>
+                    <td>
+                        <a  style="text-decoration:none; color:black" href="{% url 'board:detail' data.id %}">
+                            {{ data.title }}
+                        </a>
+                    </td>
+                    <td>{{ data.pub_date|date:'Y-m-d' }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">작성된 게시글이 없습니다.</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div>
+        <span>
+            {% if board_list.has_previous %}
+            <a class='h6' href="?page={{ board_list.previous_page_number}}">PreviousPage</a>
+            {% endif%}
+    
+            Page {{ board_list.number }} of {{board_list.paginator.num_pages }}
+    
+            {% if board_list.has_next %}
+            <a class='h6' href="?page={{ board_list.next_page_number}}">NextPage</a>
+            {% endif%}
+        </span>
+    </div>
+</div>
+{% endblock %}
+<!-- 콘텐츠 블록 End -->
+
+<!--  스크럽트 블록 Start -->
+{% block extra-script %}
+
+{% endblock %}
+<!--  스크럽트 블록 End -->

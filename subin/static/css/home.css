@@ -1,0 +1,18 @@
+.home-image {
+    /* https://picsum.photos/500/300 */
+    background-image: url('../img/home.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    height: 460px;
+    border-top: 10px solid #9B8281;
+    border-bottom: 10px solid #9B8281;
+    padding: 20px 0 0 20px;
+}
+
+.home-image > h2 {
+    position: relative;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
